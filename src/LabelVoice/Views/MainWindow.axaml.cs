@@ -16,7 +16,21 @@ namespace LabelVoice.Views
         {
             InitializeComponent();
             
+            SetupNativeMenu();
+            
             btnGetProjectRoot.Click += async (sender, e) => await GetProjectRoot();
+        }
+
+        private void SetupNativeMenu()
+        {
+            var item1 = new NativeMenuItem("Item1");
+            var item2 = new NativeMenuItem("Item2");
+            var menu1 = new NativeMenu();
+            var menu2 = new NativeMenu();
+            item2.Menu = menu1;
+            menu1.Add(item1);
+            menu2.Add(item2);
+            NativeMenu.SetMenu(this, menu2);
         }
 
         private void SelectingItemsControl_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
