@@ -3,6 +3,7 @@
         xmlns:vm="using:LabelVoice.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LabelVoice.Views"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="LabelVoice.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
@@ -11,9 +12,49 @@
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
+	
+	<NativeMenu.Menu> 
+		<NativeMenu> 
+			<NativeMenuItem Header="File"> 
+				<NativeMenu> 
+					<NativeMenuItem Header="Open" Gesture="Ctrl+O"/> 
+					<NativeMenuItem Header="Recent"> 
+						<NativeMenu/> 
+					</NativeMenuItem> 
+					<NativeMenuItemSeparator/> 
+					<NativeMenuItem Header="Quit" 
+					                Gesture="Ctrl+Q" 
+					/> 
+				</NativeMenu> 
+			</NativeMenuItem> 
+			<NativeMenuItem Header="Edit"> 
+				<NativeMenu> 
+					<NativeMenuItem Header="Copy"/> 
+					<NativeMenuItem Header="Paste"/> 
+				</NativeMenu> 
+			</NativeMenuItem> 
+			<NativeMenuItem Header="Options"> 
+				<NativeMenu> 
+					<NativeMenuItem Header="Check Me (None)"  
+					                Command="{Binding ToggleMenuItemCheckedCommand}" 
+					                ToggleType="None" 
+					                IsChecked="{Binding IsMenuItemChecked}"  /> 
+					<NativeMenuItem Header="Check Me (CheckBox)"  
+					                Command="{Binding ToggleMenuItemCheckedCommand}" 
+					                ToggleType="CheckBox" 
+					                IsChecked="{Binding IsMenuItemChecked}"  /> 
+					<NativeMenuItem Header="Check Me (Radio)"  
+					                Command="{Binding ToggleMenuItemCheckedCommand}" 
+					                ToggleType="Radio" 
+					                IsChecked="{Binding IsMenuItemChecked}"  /> 
+				</NativeMenu> 
+			</NativeMenuItem> 
+		</NativeMenu>
+	</NativeMenu.Menu>
+
 
 	<Grid Name="mainLayout" ColumnDefinitions="200,1*" RowDefinitions="*">
-        <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+		<StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock Text="{DynamicResource mainwindow.greeting}" HorizontalAlignment="Center"/>
             <ComboBox
                 x:Name="LanguageBox"
@@ -38,7 +79,7 @@
                 TextWrapping="Wrap"/>
         </StackPanel>
 
-		<WrapPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Stretch">
+		<WrapPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Stretch">
             <Grid RowDefinitions="Auto,*">
                 <Button Grid.Row="0" Name="btnGetProjectRoot"
                         Content="打开工程..." />
